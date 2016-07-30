@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              style="@style/activity_root_style"
+              android:background="#F8F8F8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:background="@anim/arrow_to_left_btn_bg" />
+
+        <TextView
+            android:id="@+id/system_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:textSize="@dimen/text_size_small"
+            android:text="设置"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+        </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/marketing_underline01"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+    <TextView
+        android:id="@+id/system_versionName"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="@dimen/text_size_small"
+        android:text="版本名称: 1.1.1"
+        android:gravity="center"
+        />
+    <ImageView
+        android:id="@+id/marketing_underline02"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+    <TextView
+        android:id="@+id/system_versionCode"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="@dimen/text_size_small"
+        android:text="版本号: 1"
+        android:gravity="center"
+        />
+    <ImageView
+        android:id="@+id/marketing_underline03"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+    <TextView
+        android:id="@+id/system_packagename"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="@dimen/text_size_small"
+        android:text="包名: kxmealorderapp "
+        android:gravity="center"
+        />
+    <ImageView
+        android:id="@+id/marketing_underline04"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+
+    <TextView
+        android:id="@+id/system_server_address"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="@dimen/text_size_small"
+        android:text="服务器地址: 测试环境 "
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/marketing_underline05"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+
+    <Button
+        android:id="@+id/system_server_toinit"
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:text="恢复默认"
+        android:layout_marginLeft="30dip"/>
+
+    <ImageView
+        android:id="@+id/marketing_underline06"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="45dip"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dip"
+            android:layout_marginLeft="30dip"
+            android:textSize="@dimen/text_size_small"
+            android:text="本地数据库缓存服务器商品信息"
+            android:gravity="center"
+            />
+
+        <Button
+            android:id="@+id/system__update_data"
+            android:layout_width="wrap_content"
+            android:layout_height="45dip"
+            android:text="同步数据"
+            android:layout_marginLeft="30dip"/>
+
+        </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/marketing_underline07"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#9E9E9E" />
+
+
+</LinearLayout>

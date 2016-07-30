@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- table_fix_headers(start) -->
+    <color name="shadow_start">#80000000</color>
+    <color name="shadow_end">#00000000</color>
+    <color name="item_n">#ffffff</color>
+    <color name="item_p">#fafafa</color>
+    <color name="table_header">#d7d7d7</color>
+    <!-- table_fix_headers(end) -->
+    
+    <!-- ZXing Android (start)-->
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color> 
+    <color name="viewfinder_mask">#00000000</color>
+    <color name="capture_text_cover_bg">#99535353</color>
+    <color name="seek_bar_text">#fff6f6f6</color>    
+    <!-- ZXing Android (end)-->
+
+    <!--iflytek-->
+    <color name="list_backgroud_color">#2fb3cb</color>
+    <color name="title_color">#0f8ec5</color>
+    <color name="content_color">#737373</color>
+    <!-- 画面背景色 -->
+    <drawable name="layout_backgroud">#000000</drawable>
+    <!-- 分割线背景色 -->
+    <drawable name="line_background">#161823</drawable>
+    
+</resources>

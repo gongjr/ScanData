@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="txt_cl_login">#7a7168</color>
+    
+    <color name="translucent_background">#00000000</color>
+    <color name="translucent_background_50">#80000000</color>
+    
+    <color name="dark_red">#b94158</color>
+    
+    <!-- 选桌页面，区域背景色  -->
+    <color name="desk_loc_bg">#FAFAFA</color>
+    
+    <!-- 选桌页面，  头部背景色  -->
+    <color name="bg_choose_desk_header">#FFFFFF</color>
+    
+    <color name="cl_bottom_layout_bg">#CC040404</color>
+    <!-- 菜品类型文本颜色  -->
+    <color name="cl_text_grey">#777777</color>
+    
+    <color name="cl_text_grey_2">#7e7e7e</color>
+    
+    <color name="statusbar_bg">#00FFFFFF</color>
+    <color name="search_ok_bg">#d12147</color>
+    <color name="search_num_text_color">#d42148</color>
+    <color name="search_item_choose_ok_bg">#f9d55b</color>
+    <color name="search_item_choose_ok_text">#4f4f4f</color>
+    <color name="peru">#CD853F</color><!--秘鲁色 -->
+    <color name="cl_bg_desk_loc_color_item_n">#707070</color>
+    <color name="cl_bg_desk_loc_color_item_s">#FF0000</color>
+
+    <!--numkey -->
+
+
+    <color name="numkey_search_bg">#6baffd</color>
+
+    <color name="numkey_bg">#f8f8f8</color>
+
+    <color name="numkey_bg_s">#fff8f8f8</color>
+
+    <color name="numkey_stroke_s">#979797</color>
+    <color name="num_keyboard_press1">#e7e7e7</color>
+
+    <color name="numkey_user_edit_hint_">#9b9b9b</color>
+    <color name="lvitem_goodstype_bg_s">#b7b7b7</color>
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cl_text_grey_2">#7e7e7e</color>
+    <color name="statusbar_bg">#00FFFFFF</color>
+    <color name="translucent_background">#00000000</color>
+</resources>

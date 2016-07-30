@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dishesmenu_bottom_bg">#f2f2f2</color>
+    <color name="dishes_menu_selected_num_text">#900a0a</color>
+    <color name="dishes_bg">#d9d9d9</color>
+
+
+    <!--itemDishesType-->
+    <color name="item_dishes_type_name_text">#cbcbcb</color>
+    <color name="item_dishes_type_name_text_s">#201a1a</color>
+    <color name="item_dishes_type_name_bg">#535353</color>
+    <color name="item_dishes_type_name_bg_s">#892122</color>
+
+    <!--itemDishes-->
+    <color name="item_dishes_margin_bg">#d9d9d9</color>
+    <!--itemDishes_init-->
+    <color name="item_dishes_init_bg">#f0f0f0</color>
+    <color name="item_dishes_init_name_text">#e62169</color>
+    <color name="item_dishes_init_describe_text">#c93a3c</color>
+    <color name="item_dishes_init_price_bg">#13294d</color>
+
+    <!--itemDishes_selected-->
+    <color name="item_dishes_selected_bg">#fcc800</color>
+    <color name="item_dishes_selected_name_text">#010000</color>
+    <!-- choose_property属性选择-->
+    <color name="choose_property_text">#020202</color>
+    <color name="choose_property_title_line">#c5c5c5</color>
+    <color name="choose_property_bg">#f6f6f6</color>
+    <color name="choose_property_item_bg_n">#eaeaea</color>
+    <color name="choose_property_item_bg_s">#ffffff</color>
+    <color name="choose_property_item_stroke_n">#cecac9</color>
+    <color name="choose_property_item_stroke_s">#ca3839</color>
+    <!-- makeorder订单生产成-->
+    <color name="makeorder_top_line">#d9d9d9</color>
+    <color name="makeorder_bottom_bg">#f2f2f2</color>
+    <color name="makeorder_price_color">#c83837</color>
+    <color name="makeorder_seleted_header_bg">#e4e4e4</color>
+    <color name="makeorder_item_remark_text">#93080b</color>
+    <color name="makeorder_item_name_text">#0f0f0f</color>
+
+    <!-- settle支付-->
+    <color name="settle_top_line_bg">#bbbbbb</color>
+    <color name="settle_bottom_line_bg">#bfbfbf</color>
+    <color name="settle_top_type_name">#5a5859</color>
+    <color name="settle_bg">#f6f6f6</color>
+    <color name="settle_print_btn_bg">#ca3939</color>
+
+
+    <color name="sticky_header_bg">#ccc1c1c1</color>
+
+    <drawable name="btn_tcolor_white">#ffffff</drawable>
+    <drawable name="btn_tcolor_white_">#70ffffff</drawable>
+    <drawable name="btn_tcolor_orange">#DCAD5C</drawable>
+    <drawable name="btn_tcolor_orange_">#70DCAD5C</drawable>
+
+
+</resources>

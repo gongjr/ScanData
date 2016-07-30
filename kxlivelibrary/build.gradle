@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.1.0'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/java']
+            renderscript.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+    //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/android-async-http-1.4.5.jar')
+    compile files('libs/android-support-v4.jar')
+    compile files('libs/gson-2.2.2.jar')
+    compile files('libs/jpush-sdk-release1.8.0.jar')
+    compile files('libs/zxing-2.2.jar')
+    compile files('libs/android-support-v7-recyclerview.jar')
+    compile files('libs/guice-3.0-no_aop.jar')
+    compile files('libs/javax.inject-1.jar')
+    compile files('libs/jsr305-1.3.9.jar')
+    compile files('libs/roboguice-2.0.jar')
+    compile files('libs/xstream-1.4.7.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/zxing-core-3.1.0.jar')
+    compile files('libs/Msc.jar')
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
+}

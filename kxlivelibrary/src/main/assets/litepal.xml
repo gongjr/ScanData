@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<litepal>  
+    <dbname value="kxmealorderdb" ></dbname>  
+  
+    <version value="16" ></version>
+  
+    <list>  
+        <mapping class="com.asiainfo.mealorder.entity.MerchantDesk"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.MerchantDeskLocation"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.DishesComp"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.DishesCompItem"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.DishesProperty"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.DishesPropertyItem"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.MerchantDishes"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.MerchantDishesType"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.OrderGoodsItem"></mapping> 
+        <mapping class="com.asiainfo.mealorder.entity.OrderSubmit"></mapping>
+    </list>  
+    
+</litepal>  
