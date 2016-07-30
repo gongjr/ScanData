@@ -1,0 +1,10 @@
+version 12:
+DishesCompItem  针对套餐选择功能，添加compId字段。
+
+version 13:
+MerchantDishes 添加isZdzk字段
+OrderGoodsItem 添加isZdzk，memberPricez字段
+
+version 14:
+OrderSubmit 去除userId字段
+

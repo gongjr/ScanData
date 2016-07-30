@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mem_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/mem_card_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="会员卡测试"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/mem_card_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="余额: 500元"
+        android:textSize="@dimen/text_size_small" />
+
+</RelativeLayout>

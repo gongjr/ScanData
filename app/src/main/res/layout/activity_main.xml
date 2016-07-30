@@ -1,0 +1,182 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity"
+                android:background="#EBECED"
+                style="@style/activity_root_style">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/quary_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Dip_60"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        >
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@anim/selector_btn_setting"
+            android:layout_marginTop="@dimen/Dip_5"
+            android:layout_marginLeft="@dimen/Dip_5"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+        <EditText
+            android:id="@+id/home_edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:gravity="center"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="10dip"
+            android:drawablePadding="1dip"
+            android:textColorHint="#AAAAAA"
+            android:hint=" 请输入名称或编码查询"
+            android:textSize="@dimen/text_size_middle"
+            android:drawableLeft="@drawable/fm_search_btn"
+            android:imeOptions="actionSearch"
+            android:background="@anim/search_input_bg"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btn_quary"
+            android:layout_toRightOf="@+id/btn_setting"
+            android:layout_marginRight="@dimen/Dip_10"
+            android:layout_marginLeft="@dimen/Dip_10"
+            android:layout_marginTop="@dimen/Dip_5"
+            />
+
+        <Button
+            android:id="@+id/btn_quary"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="查 询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle"
+            android:background="@anim/choose_end_btn_bg"
+            android:layout_marginTop="@dimen/Dip_5"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="@dimen/Dip_20"
+            android:paddingRight="@dimen/Dip_20"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#9E9E9E"
+        android:layout_below="@+id/quary_group"
+        android:layout_marginTop="@dimen/Dip_5"/>
+
+    <LinearLayout
+        android:id="@+id/title_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_below="@+id/divider_line"
+        android:layout_marginTop="@dimen/Dip_5"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/GoodType_title_one"
+            android:layout_width="0dp"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@anim/goods_title_bg"
+            android:gravity="center"
+            android:text="@string/GoodType_title_one_s"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="5dip"
+            />
+
+        <TextView
+            android:id="@+id/GoodType_title_two"
+            android:layout_width="0dp"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@anim/goods_title_bg"
+            android:gravity="center"
+            android:text="@string/GoodType_title_two_s"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            />
+
+        <TextView
+            android:id="@+id/GoodType_title_three"
+            android:layout_width="0dp"
+            android:layout_height="50dip"
+            android:layout_weight="3"
+            android:background="@anim/goods_title_bg"
+            android:gravity="center"
+            android:text="@string/GoodType_title_three_s"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="10dip"
+            />
+       </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_group"
+        android:layout_marginTop="@dimen/Dip_10"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginBottom="@dimen/Dip_10">
+
+            <ListView
+                android:id="@+id/GoodType_level_one"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="5dip"
+                android:background="@color/azure"
+                android:divider="#00000000"
+                android:dividerHeight="5dp"
+                >
+            </ListView>
+            <ListView
+                android:id="@+id/GoodType_level_two"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/azure"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:divider="#00000000"
+                android:dividerHeight="5dp">
+
+            </ListView>
+            <ListView
+                android:id="@+id/GoodType_level_three"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/azure"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="10dip"
+                android:divider="#00000000"
+                android:dividerHeight="5dp">
+            </ListView>
+    </LinearLayout>
+
+</RelativeLayout>

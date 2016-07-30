@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+    <RelativeLayout 
+        android:id="@+id/rl_content_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        android:background="@anim/property_selection_top_bg">
+        
+        <TextView 
+            android:id="@+id/tv_desk_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dip"
+            android:text="选择订单"
+            android:textSize="@dimen/text_size_middle"
+            android:gravity="center_vertical|left"
+            android:padding="5dip"/>
+        
+        <ImageView 
+            android:id="@+id/img_close"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:padding="10dip"
+            android:src="@drawable/close"
+            android:layout_marginRight="10dip"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+        
+    </RelativeLayout>
+    
+    <ListView 
+        android:id="@+id/lv_desk_orders"
+        android:layout_width="match_parent"
+        android:layout_height="300dip"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:layout_below="@+id/rl_content_header"
+        android:scrollbars="none"
+        android:background="#FFFFFF"
+        android:divider="#FFFFFF"
+        android:dividerHeight="0dip"
+        android:cacheColorHint="#00000000"
+        android:overScrollMode="never">
+    </ListView>
+    
+    <RelativeLayout 
+        android:id="@+id/rl_content_footer"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_below="@+id/lv_desk_orders"
+        android:background="@anim/property_selection_bottom_bg">
+        
+        <Button 
+            android:id="@+id/btn_ensure"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="8dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginBottom="8dip"
+            android:text="确定"
+            android:background="@anim/choose_end_btn_bg"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle"
+            android:gravity="center"/>
+        
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity"
+                android:background="#EBECED"
+                style="@style/activity_root_style">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/datail_quary_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/Dip_60"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_alignParentTop="true"
+        >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@anim/arrow_to_left_btn_bg"
+            android:layout_marginTop="@dimen/Dip_5"
+            android:layout_marginLeft="@dimen/Dip_5"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+        <EditText
+            android:id="@+id/datail_edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dip"
+            android:gravity="center"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="10dip"
+            android:drawablePadding="1dip"
+            android:textColorHint="#AAAAAA"
+            android:hint=" 请输入名称或编码查询"
+            android:textSize="@dimen/text_size_middle"
+            android:drawableLeft="@drawable/fm_search_btn"
+            android:imeOptions="actionSearch"
+            android:background="@anim/search_input_bg"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btn_quary"
+            android:layout_toRightOf="@+id/btn_back"
+            android:layout_marginRight="@dimen/Dip_10"
+            android:layout_marginLeft="@dimen/Dip_10"
+            android:layout_marginTop="@dimen/Dip_5"
+            />
+
+        <Button
+            android:id="@+id/btn_quary"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="查 询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_middle"
+            android:background="@anim/choose_end_btn_bg"
+            android:layout_marginTop="@dimen/Dip_5"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="@dimen/Dip_20"
+            android:paddingRight="@dimen/Dip_20"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/detail_divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#9E9E9E"
+        android:layout_below="@+id/datail_quary_group"
+        android:layout_marginTop="@dimen/Dip_5"/>
+
+        <ScrollView
+            android:id="@+id/GoodsInfo_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detail_divider_line"
+            android:layout_marginTop="@dimen/Dip_10"
+            android:layout_marginLeft="@dimen/Dip_20"
+            android:layout_marginBottom="@dimen/Dip_20"
+            android:layout_marginRight="@dimen/Dip_20"
+            >
+        <RelativeLayout
+            android:id="@+id/GoodInfo_qccode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+
+            <LinearLayout
+                android:id="@+id/goodinfo_qccode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                >
+                <TextView
+                    android:id="@+id/detail_goodsinfo_qccode_title"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="@dimen/text_size_middle"
+                    android:gravity="center"
+                    android:text="@string/GoodInfo_qccode_title"
+                    android:background="@anim/bg_text_detail"
+                    android:padding="@dimen/Dip_8"
+                    />
+
+                <TextView
+                    android:id="@+id/detail_goodsinfo_qccode"
+                    android:layout_width="0dip"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_middle"
+                    android:gravity="center"
+                    android:background="@anim/bg_text_detail"
+                    android:padding="@dimen/Dip_8"
+
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/goodinfo_qcname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_below="@+id/goodinfo_qccode"
+                >
+                <TextView
+                    android:id="@+id/detail_goodsinfo_qcname_title"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:textSize="@dimen/text_size_middle"
+                    android:gravity="center"
+                    android:text="@string/GoodInfo_qcname_title"
+                    android:background="@anim/bg_text_detail"
+                    android:padding="@dimen/Dip_8"
+
+                    />
+
+                <TextView
+                    android:id="@+id/detail_goodsinfo_qcname"
+                    android:layout_width="0dip"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_middle"
+                    android:gravity="center"
+                    android:background="@anim/bg_text_detail"
+                    android:padding="@dimen/Dip_8"
+
+                    />
+            </LinearLayout>
+            
+            <RelativeLayout
+                android:id="@+id/goodsinfo_image_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@anim/bg_text_detail"
+                android:layout_below="@+id/goodinfo_qcname"
+                >
+                <ImageView
+                    android:id="@+id/datail_goodsinfo_realPicUrl"
+                    android:layout_width="400dip"
+                    android:layout_height="300dip"
+                    android:src="@drawable/not_image"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginTop="10dip"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/detail_goodsinfo_qcStandard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/goodsinfo_image_group"
+                android:textSize="@dimen/text_size_middle"
+                android:background="@anim/bg_text_detail"
+                android:text="描述"
+                android:padding="@dimen/Dip_10"
+
+                />
+
+
+
+        </RelativeLayout>
+        </ScrollView>
+
+    <TextView
+        android:id="@+id/goodsinfo_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/GoodInfo_null"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/text_size_large"
+        android:layout_below="@+id/detail_divider_line"
+        android:layout_marginTop="@dimen/Dip_10"
+        android:layout_marginLeft="@dimen/Dip_20"
+        android:layout_marginBottom="@dimen/Dip_20"
+        android:layout_marginRight="@dimen/Dip_20"
+        android:background="@anim/bg_text_detail"
+        android:gravity="center"
+        android:padding="@dimen/Dip_10"/>
+
+
+</RelativeLayout>

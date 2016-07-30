@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">lo飞羽ol</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Volley异常提示信息 -->
+    <string name="no_internet">请检查您的网络是否正常！</string>
+    <string name="timeout">连接超时,请重新尝试！</string>
+    <string name="serverproblen_error">数据有误，请重新尝试！</string>
+    <string name="no_server_error">服务器异常，请重新尝试！</string>
+    <string name="Connect_timeout">建立连接超时,请重新尝试！</string>
+    <string name="Socket_timeout">服务器连接中断,请确认结果后尝试！</string>
+    <string name="unCatch_error">发生未知异常，请重新尝试！</string>
+
+
+    <string name="GoodType_title_one_s">一级分类</string>
+    <string name="GoodType_title_two_s">二级分类</string>
+    <string name="GoodType_title_three_s">名称及品项编码</string>
+    <string name="GoodType_title_detail_s">商品详情</string>
+
+    <string name="GoodInfo_qcname_title">品项名称</string>
+    <string name="GoodInfo_qccode_title">品项编码</string>
+    <string name="GoodInfo_null">没有数据!</string>
+
+
+</resources>

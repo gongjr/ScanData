@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_global"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000">
+
+    <!-- style="@style/dialog_style" 设置无效-->
+    
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_gravity="center_horizontal"
+            style="?android:attr/progressBarStyleSmallInverse" />
+
+        <TextView
+            android:id="@+id/tv_content_txt"
+            android:layout_marginLeft="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="正在获取订单..." 
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/dark_red"
+            android:visibility="visible"/>
+        
+    </LinearLayout>
+
+</RelativeLayout>

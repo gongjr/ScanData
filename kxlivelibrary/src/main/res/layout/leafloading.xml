@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="1024dip"
+    android:layout_height="770dip"
+    android:background="#00000000" >
+
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        android:layout_centerInParent="true"
+        android:background="#50000000" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="正在生成付款支付码~~~"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/leaf_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dip" >
+
+                <kxlive.gjrlibrary.widget.LeafDialog.LeafLoadingView
+                    android:id="@+id/leaf_loading"
+                    android:layout_width="302dip"
+                    android:layout_height="61dip"
+                    android:layout_centerHorizontal="true" />
+
+                <ImageView
+                    android:id="@+id/fan_pic"
+                    android:layout_width="49dip"
+                    android:layout_height="49dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dip"
+                    android:src="@drawable/fengshan" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

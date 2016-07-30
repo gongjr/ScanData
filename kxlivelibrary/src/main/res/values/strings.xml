@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GjrLibrary</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="submit_dialog_title">您已完成点菜，提交菜单吗?</string>
+    <!-- Volley异常提示信息 -->
+
+    <string name="no_internet">请检查您的网络是否正常！</string>
+    <string name="timeout">连接超时,请重新尝试！</string>
+    <string name="serverproblen_error">数据有误，请重新尝试！</string>
+    <string name="no_server_error">服务器异常，请重新尝试！</string>
+    <string name="Connect_timeout">建立连接超时,请重新尝试！</string>
+    <string name="Socket_timeout">服务器连接中断,请确认结果后尝试！</string>
+    <string name="unCatch_error">发生未知异常，请重新尝试！</string>
+
+    <!-- 资源命名规范   命名模板为：缩写_主界面_功能部分-->
+    <!--
+              　ic.....................icon
+　　         bg.....................background
+　　         di.....................divider
+　　         sl.....................selector
+　　         cl.....................color
+　　         bt.....................button
+　　        ic主要用在app的图标
+　　        bg主要用于布局和子布局的背景
+　　        di主要用于分隔线，不仅包括Listview中的divider，还包括普通布局中的线
+　　        sl主要用于某一view多种状态，不仅包括Listview中的selector，还包括按钮的selector
+　　        cl主要用于颜色值
+　　        bt主要用于按钮的表示，有时我们会在ic和bt之间犹豫，简单的区分即是功能视图，如果一个view执行的时back或者confirm或者cancel的功能，则命名上则应该使用bt
+     -->
+</resources>
