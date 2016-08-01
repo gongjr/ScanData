@@ -37,7 +37,7 @@
     <ListView 
         android:id="@+id/lv_desk_orders"
         android:layout_width="match_parent"
-        android:layout_height="300dip"
+        android:layout_height="200dip"
         android:paddingTop="5dip"
         android:paddingBottom="5dip"
         android:layout_below="@+id/rl_content_header"
