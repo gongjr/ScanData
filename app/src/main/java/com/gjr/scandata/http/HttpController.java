@@ -10,6 +10,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.gjr.scandata.config.Constants;
 
 import kxlive.gjrlibrary.http.RequestManager;
+import kxlive.gjrlibrary.rx.Result;
+import rx.Observable;
 
 /**
  * 统一管理公共接口地址,参数传入,接口回调响应交互
@@ -98,13 +100,24 @@ public class HttpController {
 
     /**
      * 执行网络请求，加入执行队列
-     * 15秒超时,连接异常默认不自动重新连接
+     * 30秒超时,连接异常默认不自动重新连接
      *
      * @param request
      */
     protected void executeRequest(Request<?> request) {
         request.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, Constants.VOLLEY_MAX_RETRY_TIMES, 1.0f));
         RequestManager.addRequest(request, this);
+    }
+
+    /**
+     * 执行网络请求，加入执行队列,返回可观察者对象,在外层进行订阅,基于rxjava支持异步响应事件
+     * 30秒超时,连接异常默认不自动重新连接
+     *
+     * @param request
+     */
+    protected Observable<Result> executeRequestWithAsyncResult(Request<?> request) {
+        request.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, Constants.VOLLEY_MAX_RETRY_TIMES, 1.0f));
+        return RequestManager.getResult(request, this);
     }
 
     /**
@@ -142,5 +155,18 @@ public class HttpController {
         String param = "/HjpQc/app/queryQc.do?synTime="+time;
         JsonObjectRequest GoodsType = new JsonObjectRequest(HOST + param, null, listener, errorListener);
         executeRequest(GoodsType);
+    }
+
+    /**
+     * 查询信息接口,异步结果处理
+     *
+     * @param listener      响应监听器
+     * @param errorListener 异常监听器
+     */
+    public Observable<Result> getQueryQcWithAsyncResult(String time,  Response.Listener listener,
+                           Response.ErrorListener errorListener) {
+        String param = "/HjpQc/app/queryQc.do?synTime="+time;
+        JsonObjectRequest GoodsType = new JsonObjectRequest(HOST + param, null, listener, errorListener);
+        return executeRequestWithAsyncResult(GoodsType);
     }
 }

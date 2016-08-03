@@ -27,6 +27,10 @@ android {
         abortOnError false
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
@@ -46,4 +50,8 @@ dependencies {
     compile files('libs/zxing-core-3.1.0.jar')
     compile files('libs/Msc.jar')
     compile 'com.squareup.okhttp:okhttp:2.7.0'
+    // And ProGuard rules for RxJava!
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.artemzin.rxjava:proguard-rules:1.1.6.0'
 }

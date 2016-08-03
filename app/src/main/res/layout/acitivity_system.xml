@@ -124,7 +124,14 @@
             android:id="@+id/system__update_data"
             android:layout_width="wrap_content"
             android:layout_height="45dip"
-            android:text="同步数据"
+            android:text="同步最新数据"
+            android:layout_marginLeft="30dip"/>
+
+        <Button
+            android:id="@+id/system_clear_data"
+            android:layout_width="wrap_content"
+            android:layout_height="45dip"
+            android:text="长按清除数据"
             android:layout_marginLeft="30dip"/>
 
         </LinearLayout>

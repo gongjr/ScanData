@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.gjr.scandata.R;
 import com.gjr.scandata.biz.bean.GoodsInfo;
 import com.gjr.scandata.biz.bean.GoodsType;
@@ -20,6 +21,7 @@ import com.gjr.scandata.biz.listener.DialogDelayListener;
 import com.gjr.scandata.http.AddressState;
 import com.gjr.scandata.http.HttpController;
 import com.gjr.scandata.http.ImagesLoader;
+import com.gjr.scandata.http.ResultMap;
 import com.gjr.scandata.http.VolleyErrorHelper;
 import com.gjr.scandata.ui.popup.CheckUserPwdDF;
 import com.gjr.scandata.ui.popup.ChooseServerAddressDF;
@@ -28,8 +30,10 @@ import com.gjr.scandata.utils.Tools;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,9 +44,16 @@ import kxlive.gjrlibrary.base.BaseActivity;
 import kxlive.gjrlibrary.config.SysEnv;
 import kxlive.gjrlibrary.entity.eventbus.EventBackground;
 import kxlive.gjrlibrary.entity.eventbus.EventMain;
+import kxlive.gjrlibrary.rx.Result;
 import kxlive.gjrlibrary.utils.KLog;
 import kxlive.gjrlibrary.utils.StringUtils;
 import roboguice.inject.InjectView;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * 营销活动,编辑预览页
@@ -65,6 +76,8 @@ public class SettingActivity extends BaseActivity{
     private View marketing_underline06;
     @InjectView(R.id.system__update_data)
     private Button update_data;
+    @InjectView(R.id.system_clear_data)
+    private Button clear_data;
     @InjectView(R.id.btn_back)
     private Button btn_back;
 
@@ -76,6 +89,7 @@ public class SettingActivity extends BaseActivity{
 
     private String curQcUpdateTime="";
     private String curQcTypeUpdateTime="";
+    private Subscription subscription;
 
 
     @Override
@@ -94,7 +108,8 @@ public class SettingActivity extends BaseActivity{
                 case EventMain.TYPE_FIRST:
                     showShortTip("商品类型更新成功!");
                     saveUpdateTime(QcTypeKey,curQcTypeUpdateTime);
-                    getQueryQc();
+//                    getQueryQc();
+                    getQueryQcWithAsyncResult();
                     break;
                 case EventMain.TYPE_SECOND:
                     showShortTip("商品信息更新成功!");
@@ -180,18 +195,27 @@ public class SettingActivity extends BaseActivity{
                                 if (localGoodsInfoList.size()>0){
                                     //修改
                                     for (GoodsInfo lGoodsInfo1:localGoodsInfoList){
-                                        if (!getURLName(lGoodsInfo1.getRealPicUrl()).equals(getURLName(lGoodsInfo.getRealPicUrl()))){
-                                            needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                        if (lGoodsInfo.getState().equals("1")){
+                                            if (!getURLName(lGoodsInfo1.getRealPicUrl()).equals(getURLName(lGoodsInfo.getRealPicUrl()))){
+                                                needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                            }else{
+                                                KLog.i(lGoodsInfo1.getGoodsInfoId()+"图片地址无变动:"+lGoodsInfo1.getRealPicUrl());
+                                            }
+                                            int size=GoodsSqlHelper.getInstances().sqlUpdateGoodsInfo(lGoodsInfo,lGoodsInfo1.getId());
+                                            KLog.i(lGoodsInfo1.getGoodsInfoId()+"修改数据库行:"+size+" 变动行id:"+lGoodsInfo1.getId());
                                         }else{
-                                            KLog.i(lGoodsInfo1.getGoodsInfoId()+"图片地址无变动:"+lGoodsInfo1.getRealPicUrl());
+                                            //状态为0或者2的,因该删除,放弃缓存
+                                            int size=GoodsSqlHelper.getInstances().sqlDeleteGoodsInfo(lGoodsInfo1.getId());
+                                            KLog.i(lGoodsInfo1.getGoodsInfoId()+"删除数据库行:"+size+" 变动行id:"+lGoodsInfo1.getId());
+                                            mImagesLoader.clearCacheDir(lGoodsInfo1.getRealPicUrl());
                                         }
-                                        int size=GoodsSqlHelper.getInstances().sqlUpdateGoodsInfo(lGoodsInfo,lGoodsInfo1.getId());
-                                        KLog.i(lGoodsInfo1.getGoodsInfoId()+"修改数据库行:"+size+" 变动行id:"+lGoodsInfo1.getId());
                                     }
                                 }else{
-                                    //新增
-                                    lGoodsInfo.saveThrows();
-                                    needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                    if (lGoodsInfo.getState().equals("1")){
+                                        //新增,只缓存显示状态开启的,无视0禁用与2删除
+                                        lGoodsInfo.saveThrows();
+                                        needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                    }
                                 }
                             }
                         }
@@ -257,6 +281,14 @@ public class SettingActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        clear_data.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                clearAllCacheData();
+                return false;
             }
         });
 
@@ -352,7 +384,7 @@ public class SettingActivity extends BaseActivity{
                     } else {
                         showShortTip("商品类型数据" + data.getString("msg"));
                         saveUpdateTime(QcTypeKey,curQcTypeUpdateTime);
-                        getQueryQc();
+                        getQueryQcWithAsyncResult();
                     }
                 } catch (JSONException e) {
                     showShortTip("商品类型数据更新失败! ");
@@ -419,6 +451,167 @@ public class SettingActivity extends BaseActivity{
         });
     }
 
+    public void getQueryQcWithAsyncResult(){
+        curQcUpdateTime= StringUtils.datetime2Str(new Date());
+        Observable<Result> observable=HttpController.getInstance().getQueryQcWithAsyncResult(getUpdateTime(QcKey), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject data) {
+                /*try {
+                    if (data.getString("msg").equals("ok")) {
+                        Gson gson = new Gson();
+                        JSONObject datainfo = data.getJSONObject("data");
+                        String info = datainfo.getString("info");
+                        KLog.i("info:" + info);
+                        List<HttpGoodsInfo> lHttpGoodsInfos = gson.fromJson(info, new TypeToken<List<HttpGoodsInfo>>() {
+                        }.getType());
+                        Log.d(TAG, "GoodsInfo Count: " + lHttpGoodsInfos.size());
+                        List<GoodsInfo> lGoodsInfoList = new ArrayList<GoodsInfo>();
+                        if (lHttpGoodsInfos != null && lHttpGoodsInfos.size() > 0) {
+                            for (HttpGoodsInfo lHttpGoodsInfo : lHttpGoodsInfos) {
+                                lGoodsInfoList.add(lHttpGoodsInfo.ToGoodsInfo());
+                            }
+                        }
+
+                        EventBackground event = new EventBackground();
+                        event.setData(lGoodsInfoList);
+                        event.setName(SettingActivity.class.getName());
+                        event.setType(EventBackground.TYPE_SECOND);
+                        event.setDescribe("商品信息数据传入后台线程存入数据库");
+                        EventBus.getDefault().post(event);
+
+                    } else {
+                        showShortTip("商品信息数据更新! " + data.getString("msg"));
+                        saveUpdateTime(QcKey,curQcUpdateTime);
+                        dismissLoadingDF();
+                    }
+                } catch (JSONException e) {
+                    showShortTip("商品信息数据更新失败! ");
+                    dismissLoadingDF();
+                    e.printStackTrace();
+                }*/
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dismissLoadingDF();
+                Log.e("VolleyLogTag", "VolleyError:" + error.getMessage(), error);
+                showShortTip(VolleyErrorHelper.getMessage(error, mActivity));
+            }
+        });
+
+        subscription = observable
+                .filter(new Func1<Result, Boolean>() {
+                    @Override
+                    public Boolean call(Result result) {
+                        return result.data != null;
+                    }
+                })
+                .map(new Func1<Result, ResultMap>() {
+                    @Override
+                    public ResultMap call(Result result) {
+                        JSONObject data=null;
+                        ResultMap lMap=new ResultMap();
+                        try {
+                            String jsonString = new String(result.data,
+                                    HttpHeaderParser.parseCharset(result.header, HTTP.UTF_8));
+                            data=new JSONObject(jsonString);
+                            if (data==null){
+                                lMap.setMsg("没有数据!");
+                                lMap.setErrcode("1000");
+                                return lMap;
+                            }
+                            lMap.setMsg(data.getString("msg"));
+                            lMap.setErrcode(data.getString("errcode"));
+                            if (data.getString("msg").equals("ok")) {
+                                Gson gson = new Gson();
+                                JSONObject datainfo = data.getJSONObject("data");
+                                String info = datainfo.getString("info");
+                                KLog.i("info:" + info);
+                                List<HttpGoodsInfo> lHttpGoodsInfos = gson.fromJson(info, new TypeToken<List<HttpGoodsInfo>>() {
+                                }.getType());
+                                Log.d(TAG, "GoodsInfo Count: " + lHttpGoodsInfos.size());
+                                List<GoodsInfo> lGoodsInfoList = new ArrayList<GoodsInfo>();
+                                if (lHttpGoodsInfos != null && lHttpGoodsInfos.size() > 0) {
+                                    for (HttpGoodsInfo lHttpGoodsInfo : lHttpGoodsInfos) {
+                                        lGoodsInfoList.add(lHttpGoodsInfo.ToGoodsInfo());
+                                    }
+                                    List<String> needUpdateUrl=new ArrayList<String>();
+                                        for (GoodsInfo lGoodsInfo:lGoodsInfoList){
+                                            List<GoodsInfo> localGoodsInfoList=GoodsSqlHelper.getInstances().sqlGoodsInfoByGoodsInfoId(lGoodsInfo.getGoodsInfoId());
+                                            if (localGoodsInfoList.size()>0){
+                                                //修改
+                                                for (GoodsInfo lGoodsInfo1:localGoodsInfoList){
+                                                    if (lGoodsInfo.getState().equals("1")){
+                                                        if (!getURLName(lGoodsInfo1.getRealPicUrl()).equals(getURLName(lGoodsInfo.getRealPicUrl()))){
+                                                            needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                                        }else{
+                                                            KLog.i(lGoodsInfo1.getGoodsInfoId()+"图片地址无变动:"+lGoodsInfo1.getRealPicUrl());
+                                                        }
+                                                        int size=GoodsSqlHelper.getInstances().sqlUpdateGoodsInfo(lGoodsInfo,lGoodsInfo1.getId());
+                                                        KLog.i(lGoodsInfo1.getGoodsInfoId()+"修改数据库行:"+size+" 变动行id:"+lGoodsInfo1.getId());
+                                                    }else{
+                                                        //状态为0或者2的,因该删除,放弃缓存
+                                                        int size=GoodsSqlHelper.getInstances().sqlDeleteGoodsInfo(lGoodsInfo1.getId());
+                                                        KLog.i(lGoodsInfo1.getGoodsInfoId()+"删除数据库行:"+size+" 变动行id:"+lGoodsInfo1.getId());
+                                                        mImagesLoader.clearCacheDir(lGoodsInfo1.getRealPicUrl());
+                                                    }
+                                                }
+                                            }else{
+                                                if (lGoodsInfo.getState().equals("1")){
+                                                    //新增,只缓存显示状态开启的,无视0禁用与2删除
+                                                    lGoodsInfo.saveThrows();
+                                                    needUpdateUrl.add(lGoodsInfo.getRealPicUrl());
+                                                }
+                                            }
+
+                                        }
+                                    lMap.setData(needUpdateUrl);
+                                }else KLog.i("无数据");
+                            }else {
+                                KLog.i("errcode:"+data.getString("errcode")+" msg:"+data.getString("msg"));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                            return lMap;
+                        }
+                    }).subscribeOn(Schedulers.io())
+                      .observeOn(AndroidSchedulers.mainThread())
+                      .subscribe(new Action1<ResultMap>() {
+                                     @Override
+                                     public void call(ResultMap data) {
+                                         if (data.getErrcode().equals("0")) {
+                                             showShortTip("商品信息更新成功!");
+                                             List<String> needUpdateUrl = (List<String>) data.getData();
+                                             if (needUpdateUrl != null && needUpdateUrl.size() > 0) {
+                                                 for (String url : needUpdateUrl) {
+                                                     mImagesLoader.loadImage(url, 400, 300, new ImagesLoader.AsyncImageLoaderListener() {
+                                                         @Override
+                                                         public void onImageLoader(Bitmap bitmap, String url, int size) {
+                                                             if (size == 0) {
+                                                                 updateNotice("所有数据同步成功!", 1);
+                                                                 saveUpdateTime(QcKey, curQcUpdateTime);
+                                                             }
+                                                         }
+                                                     });
+                                                 }
+                                             } else {
+                                                 updateNotice("所有数据同步成功!", 1);
+                                                 saveUpdateTime(QcKey, curQcUpdateTime);
+                                             }
+                                         } else if (data.getErrcode().equals("4")) {
+                                             showShortTip("商品信息数据更新! " + data.getMsg());
+                                             saveUpdateTime(QcKey, curQcUpdateTime);
+                                             dismissLoadingDF();
+                                         } else {
+                                             showShortTip("更新失败!" + data.getMsg());
+                                             dismissLoadingDF();
+                                         }
+
+                                     }
+                                 }
+                      );
+                }
 
     /**
      * 提示框
@@ -477,6 +670,9 @@ public class SettingActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        if (subscription != null && subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
         super.onDestroy();
     }
 
@@ -515,6 +711,15 @@ public class SettingActivity extends BaseActivity{
         SharedPreferences mSharedPreferences = mActivity.getSharedPreferences(AppKey, mActivity.MODE_PRIVATE);
         String update = mSharedPreferences.getString(key, "2016-01-01 00:00:00");
         return update;
+    }
+
+    private void clearAllCacheData(){
+        DataSupport.deleteAll(GoodsInfo.class);
+        DataSupport.deleteAll(GoodsType.class);
+        mImagesLoader.clearCacheDir();
+        showShortTip("缓存数据已清空!");
+        saveUpdateTime(QcKey, "2016-01-01 00:00:00");
+        saveUpdateTime(QcTypeKey, "2016-01-01 00:00:00");
     }
 
 }

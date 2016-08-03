@@ -16,6 +16,11 @@ import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.OkHttpStack;
 import com.android.volley.toolbox.Volley;
 
+import kxlive.gjrlibrary.rx.Result;
+import kxlive.gjrlibrary.rx.RxBus;
+import rx.Observable;
+import rx.functions.Func1;
+
 public class RequestManager {
 	private static RequestQueue mRequestQueue;
 
@@ -65,6 +70,21 @@ public class RequestManager {
             request.setTag(tag);
         }
         mRequestQueue.add(request);
+    }
+
+    /**
+     * 执行请求任务,并返回一个RxJava的Observable类型
+     */
+    public static Observable<Result> getResult(final Request<?> request, Object tag) {
+        addRequest(request,tag);
+        return RxBus.getDefault().take(Result.class)
+                .filter(new Func1<Result, Boolean>() {
+                    @Override
+                    public Boolean call(Result result) {
+                        return request.getUrl().equals(result.url);
+                    }
+                })
+                .take(1);
     }
 	
 	public static void cancelAll(Object tag) {

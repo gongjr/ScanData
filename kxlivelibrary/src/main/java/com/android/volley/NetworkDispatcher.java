@@ -23,6 +23,9 @@ import android.os.Process;
 
 import java.util.concurrent.BlockingQueue;
 
+import kxlive.gjrlibrary.rx.Result;
+import kxlive.gjrlibrary.rx.RxBus;
+
 /**
  * Provides a thread for performing network dispatch from a queue of requests.
  *
@@ -42,6 +45,8 @@ public class NetworkDispatcher extends Thread {
     private final ResponseDelivery mDelivery;
     /** Used for telling us to die. */
     private volatile boolean mQuit = false;
+
+    private final RxBus mPoster = RxBus.getDefault();
 
     /**
      * Creates a new network dispatcher thread.  You must call {@link #start()}
@@ -133,6 +138,14 @@ public class NetworkDispatcher extends Thread {
 
                 // Post the response back.
                 request.markDelivered();
+                //执行异步响应
+                if (networkResponse.data != null) {
+                    /*if (request.getCallback() != null) {
+                        request.getCallback().onSuccessInAsync(networkResponse.data);
+                    }*/
+                    mPoster.post(new Result(request.getUrl(),
+                            networkResponse.headers, networkResponse.data));
+                }
                 mDelivery.postResponse(request, response);
             } catch (VolleyError volleyError) {
                 volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);

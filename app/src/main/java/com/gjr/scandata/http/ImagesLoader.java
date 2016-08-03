@@ -296,4 +296,18 @@ public class ImagesLoader {
         }
         return lastName;
     }
+
+    public void clearCacheDir(){
+        ImageFileUtils.delFile(cacheFileDir, false);
+    }
+
+    public void clearCacheDir(String url){
+        String urlKey =getURLName(url);
+        if (ImageFileUtils.isFileExists(cacheFileDir, urlKey)
+                && ImageFileUtils.getFileSize(new File(cacheFileDir, urlKey)) > 0) {
+            KLog.i("本地目录 "+cacheFileDir+" 存在图片:"+urlKey);
+            boolean isD=ImageFileUtils.deleteFile(cacheFileDir, urlKey);
+            KLog.i("删除"+urlKey+isD);
+        }
+    }
 }

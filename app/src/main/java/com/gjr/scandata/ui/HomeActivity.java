@@ -95,6 +95,11 @@ public class HomeActivity extends BaseActivity {
                 threeGoodsTypeList=GoodsSqlHelper.getInstances().sqlGoodsInfoByQcTypeCode(twoGoodsTypeList.get(0).getGoodsTypeId());
                 threeGoodsTypeAdapter.refreshDate(threeGoodsTypeList);
             }
+        }else{
+            twoGoodsTypeList.clear();
+            twoGoodsTypeAdapter.refreshDate(twoGoodsTypeList);
+            threeGoodsTypeList.clear();
+            threeGoodsTypeAdapter.refreshDate(threeGoodsTypeList);
         }
     }
 

@@ -118,6 +118,16 @@ public class GoodsSqlHelper {
     }
 
     /**
+     * 删除商品id对应商品详情
+     * @param id
+     * @return size
+     */
+    public int sqlDeleteGoodsInfo(long id){
+        int size = DataBinder.binder.delete(GoodsInfo.class,id);
+        return size;
+    }
+
+    /**
      * 根据商品关键字,查询相关信息
      * @param Key
      * @return List<GoodsInfo>
