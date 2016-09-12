@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -95,6 +96,8 @@ public class SettingActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.acitivity_system);
         EventBus.getDefault().register(this);
         initData();
@@ -588,9 +591,13 @@ public class SettingActivity extends BaseActivity{
                                                      mImagesLoader.loadImage(url, 400, 300, new ImagesLoader.AsyncImageLoaderListener() {
                                                          @Override
                                                          public void onImageLoader(Bitmap bitmap, String url, int size) {
+                                                             Log.i("onImageLoader", "url完成:" + url);
+                                                             Log.i("onImageLoader","当前剩余任务size:"+size);
                                                              if (size == 0) {
                                                                  updateNotice("所有数据同步成功!", 1);
                                                                  saveUpdateTime(QcKey, curQcUpdateTime);
+                                                             }else{
+                                                                 updateNotice("正在下载图片...还剩- "+size+" -个");
                                                              }
                                                          }
                                                      });
@@ -634,6 +641,15 @@ public class SettingActivity extends BaseActivity{
     private void updateNotice(String info, int type) {
         if (mMakeOrderDF != null && mMakeOrderDF.isAdded()) {
             mMakeOrderDF.updateNoticeText(info, type);
+        }
+    }
+
+    /**
+     * @param info
+     */
+    private void updateNotice(String info) {
+        if (mMakeOrderDF != null && mMakeOrderDF.isAdded()) {
+            mMakeOrderDF.updateNoticeText(info);
         }
     }
 

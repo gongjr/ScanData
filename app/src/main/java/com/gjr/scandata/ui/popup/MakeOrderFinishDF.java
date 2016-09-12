@@ -170,6 +170,11 @@ public class MakeOrderFinishDF extends DialogFragment {
         }
 	}
 
+    public void updateNoticeText(String txt){
+        contentTxt = txt;
+        mContextView.setText(txt);
+    }
+
     public void showNoticeText(String txt,int type,Bitmap url){
         TYPE=TYPE_UPDATE;
         contentTxt = txt;

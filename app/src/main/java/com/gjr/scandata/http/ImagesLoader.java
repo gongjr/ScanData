@@ -81,29 +81,35 @@ public class ImagesLoader {
      */
     public void loadImage(final String url, final int width, final int height,
                           AsyncImageLoaderListener listener) {
-
-        String urlKey =getURLName(url);
-        if (ImageFileUtils.isFileExists(cacheFileDir, urlKey)
-                && ImageFileUtils.getFileSize(new File(cacheFileDir, urlKey)) > 0) {
-            KLog.i("跳过下载-本地目录 "+cacheFileDir+" 已存在图片:"+urlKey);
-            return;
-        }
-
         Log.i(ImageDownLoader_Log, "download:" + url);
         final ImageHandler handler = new ImageHandler(listener);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Bitmap bitmap = downloadImage(url, width, height);
-                taskCollection.remove(url);
-                Holder holder = new Holder();
-                holder.image = bitmap;
-                holder.url = url;
-                holder.taskSize=taskCollection.size();
-                Message msg = handler.obtainMessage();
-                msg.obj = holder;
-                handler.sendMessage(msg);
-                // 加入文件缓存前，需判断缓存目录大小是否超过限制，超过则清空缓存再加入
+                String urlKey =getURLName(url);
+                Bitmap bitmap=null;
+                if (ImageFileUtils.isFileExists(cacheFileDir, urlKey)
+                        && ImageFileUtils.getFileSize(new File(cacheFileDir, urlKey)) > 0) {
+                    KLog.i("跳过下载-本地目录 "+cacheFileDir+" 已存在图片:"+urlKey);
+                    taskCollection.remove(url);
+                    Holder holder = new Holder();
+                    holder.image = bitmap;
+                    holder.url = url;
+                    holder.taskSize=taskCollection.size();
+                    Message msg = handler.obtainMessage();
+                    msg.obj = holder;
+                    handler.sendMessage(msg);
+                }else{
+                    bitmap = downloadImage(url, width, height);
+                    taskCollection.remove(url);
+                    Holder holder = new Holder();
+                    holder.image = bitmap;
+                    holder.url = url;
+                    holder.taskSize=taskCollection.size();
+                    Message msg = handler.obtainMessage();
+                    msg.obj = holder;
+                    handler.sendMessage(msg);
+                    // 加入文件缓存前，需判断缓存目录大小是否超过限制，超过则清空缓存再加入
 //                long cacheFileSize = ImageFileUtils.getFileSize(cacheFileDir);
 //                if (cacheFileSize > DIR_CACHE_LIMIT) {
 //                    Log.i(ImageDownLoader_Log, cacheFileDir
@@ -111,18 +117,20 @@ public class ImagesLoader {
 //                    ImageFileUtils.delFile(cacheFileDir, false);
 //                    taskCollection.clear();
 //                }
-                String urlKey =getURLName(url);
-                if (ImageFileUtils.isFileExists(cacheFileDir, urlKey)
-                        && ImageFileUtils.getFileSize(new File(cacheFileDir, urlKey)) > 0) {
-                    KLog.i("本地目录 "+cacheFileDir+" 已存在图片:"+urlKey);
-                    boolean isD=ImageFileUtils.deleteFile(cacheFileDir, urlKey);
-                    KLog.i("删除"+urlKey+isD);
-                }
-                ImageFileUtils.savaBitmap(cacheFileDir, urlKey, bitmap);
+//                String urlKey =getURLName(url);
+//                    if (ImageFileUtils.isFileExists(cacheFileDir, urlKey)
+//                            && ImageFileUtils.getFileSize(new File(cacheFileDir, urlKey)) > 0) {
+//                        KLog.i("本地目录 "+cacheFileDir+" 已存在图片:"+urlKey);
+//                        boolean isD=ImageFileUtils.deleteFile(cacheFileDir, urlKey);
+//                        KLog.i("删除"+urlKey+isD);
+//                    }
+                    if (bitmap!=null)
+                    ImageFileUtils.savaBitmap(cacheFileDir, urlKey, bitmap);
 //              确定bitmap不再使用时回收位图
-				if(bitmap!=null){
-					bitmap.recycle();
-				}
+                    if(bitmap!=null){
+                        bitmap.recycle();
+                    }
+                }
             }
         };
         // 记录该url，防止滚动时多次下载，0代表该url下载失败次数
