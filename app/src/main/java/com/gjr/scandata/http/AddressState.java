@@ -8,6 +8,7 @@ public enum AddressState {
 
 
     release("Address_release","生产环境","http://www.cclovenn.com"),
+    release_jinjiamen("Address_release_jinjiamen","jinjiamen生产环境","http://pk.jinjiamen.com:21001"),
     localtest("Address_localtest","本地环境","http://192.168.1.131:8080/tacosonline");
 
     /**

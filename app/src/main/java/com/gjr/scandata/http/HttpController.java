@@ -22,7 +22,7 @@ public class HttpController {
     /**
      * 默认服务器配置,程序初始化确认的地址,恢复的初始状态
      */
-    public static final AddressState init=AddressState.release;
+    public static final AddressState init=AddressState.release_jinjiamen;
     /**
      * 当前服务器环境值,如果配置,保有最新选择
      */
