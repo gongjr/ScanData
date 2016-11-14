@@ -1,6 +1,7 @@
 package com.gjr.scandata.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.gjr.scandata.biz.bean.GoodsType;
 import com.gjr.scandata.biz.db.GoodsSqlHelper;
 import com.gjr.scandata.biz.listener.OnItemClickListener;
 import com.gjr.scandata.biz.presenter.HomePresenter;
+import com.gjr.scandata.config.Constants;
 import com.gjr.scandata.ui.popup.ChooseGoodsInfoDF;
 
 import java.util.ArrayList;
@@ -77,13 +79,17 @@ public class HomeActivity extends BaseActivity {
         threeGoodsTypeAdapter.setOnItemClickListener(mInfoOnItemClickListener);
         GoodType_level_three.setAdapter(threeGoodsTypeAdapter);
 
-
+        refreshDate();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        refreshDate();
+    }
+
+    public void refreshDate(){
         oneGoodsTypeList.clear();
         oneGoodsTypeList=GoodsSqlHelper.getInstances().sqlGoodsTypeByQcTypeLevel_1();
         oneGoodsTypeAdapter.refreshDate(oneGoodsTypeList);
@@ -102,6 +108,22 @@ public class HomeActivity extends BaseActivity {
             threeGoodsTypeAdapter.refreshDate(threeGoodsTypeList);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==Constants.RequestCode_HomeActivityToDetailActivity&&resultCode==Constants.ResultCode_DetailActivityToHomeActivity){
+//            refreshDate();
+            return;
+        }
+
+        if(requestCode==Constants.RequestCode_HomeActivityToSettingActivity&&resultCode==Constants.ResultCode_SettingActivityToHomeActivity){
+            refreshDate();
+            return;
+        }
+
+    }
+
 
     public void initListener(){
         Search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -153,7 +175,7 @@ public class HomeActivity extends BaseActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOperation().forward(SettingActivity.class);
+                getOperation().forwardForResult(SettingActivity.class, Constants.RequestCode_HomeActivityToSettingActivity);
             }
         });
     }
@@ -196,7 +218,7 @@ public class HomeActivity extends BaseActivity {
 
         getOperation().addParameter("GOODSINFO",pGoodsInfo);
         getOperation().addParameter("SEARCH",initSearch);
-        getOperation().forward(DetailActivity.class);
+        getOperation().forwardForResult(DetailActivity.class, Constants.RequestCode_HomeActivityToDetailActivity);
     }
 
     public void clearSearch(){

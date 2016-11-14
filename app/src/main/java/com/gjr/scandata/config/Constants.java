@@ -10,9 +10,10 @@ public class Constants {
     public static final String Preferences_Login_PassWord="PASSWORD";
     public static final String Preferences_Login_IsCheck="ISCHECK";
     //请求码
-    public static final int RequestCode_DishesMenuToMakeorder=1;
-    public static final int ResultCode_MakeorderToDishesMenu_Back=1;
-    public static final int ResultCode_MakeorderToDishesMenu_Clear=2;
+    public static final int RequestCode_HomeActivityToDetailActivity=0;
+    public static final int RequestCode_HomeActivityToSettingActivity=1;
+    public static final int ResultCode_DetailActivityToHomeActivity=3;
+    public static final int ResultCode_SettingActivityToHomeActivity=4;
 
     public static final int Handler_Dialog_Delay = 1;
     public static final int Handler_elay = 2;

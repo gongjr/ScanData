@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.gjr.scandata.R;
 import com.gjr.scandata.biz.bean.GoodsInfo;
 import com.gjr.scandata.biz.db.GoodsSqlHelper;
+import com.gjr.scandata.config.Constants;
 import com.gjr.scandata.ui.popup.ChooseGoodsInfoDF;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -135,6 +136,7 @@ public class DetailActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(Constants.ResultCode_DetailActivityToHomeActivity);
                 finish();
             }
         });
@@ -205,4 +207,13 @@ public class DetailActivity extends BaseActivity {
             refhreshDate(pGoodsInfo);
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            setResult(Constants.ResultCode_DetailActivityToHomeActivity);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

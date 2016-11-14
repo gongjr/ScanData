@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.gjr.scandata.biz.bean.HttpGoodsInfo;
 import com.gjr.scandata.biz.bean.HttpGoodsType;
 import com.gjr.scandata.biz.db.GoodsSqlHelper;
 import com.gjr.scandata.biz.listener.DialogDelayListener;
+import com.gjr.scandata.config.Constants;
 import com.gjr.scandata.http.AddressState;
 import com.gjr.scandata.http.HttpController;
 import com.gjr.scandata.http.ImagesLoader;
@@ -283,6 +285,7 @@ public class SettingActivity extends BaseActivity{
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(Constants.ResultCode_SettingActivityToHomeActivity);
                 finish();
             }
         });
@@ -736,6 +739,15 @@ public class SettingActivity extends BaseActivity{
         showShortTip("缓存数据已清空!");
         saveUpdateTime(QcKey, "2016-01-01 00:00:00");
         saveUpdateTime(QcTypeKey, "2016-01-01 00:00:00");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            setResult(Constants.ResultCode_SettingActivityToHomeActivity);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
